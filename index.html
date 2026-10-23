@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Manajemen Sertikom - Login & Registrasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <div class="login-wrapper">
+        <!-- Banner Sisi Kiri -->
+        <div class="login-banner">
+            <div class="brand-logo">
+                <i class="fa-solid fa-certificate fa-lg"></i>
+                <span>SERTIKOM TRPL</span>
+            </div>
+            
+            <div style="z-index: 2;">
+                <span class="badge" style="background: rgba(255,255,255,0.2); color:#fff; margin-bottom:12px; font-weight:700;">
+                    <i class="fa-solid fa-award"></i> LSP-P1 POLIBATAM
+                </span>
+                <h2 style="font-size: 1.85rem; font-weight: 800; line-height: 1.3; margin-bottom: 12px;">
+                    Sistem Informasi Manajemen Sertifikasi Kompetensi
+                </h2>
+                <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.6;">
+                    Portal resmi mahasiswa, asesor, dan operator untuk pendaftaran asesmen, verifikasi berkas kelayakan, hingga penerbitan sertifikat kompetensi BNSP.
+                </p>
+            </div>
+
+            <div style="font-size: 0.8rem; opacity: 0.75; z-index: 2;">
+                &copy; 2026 Jurusan Teknik Informatika • Politeknik Negeri Batam
+            </div>
+        </div>
+
+        <!-- Sisi Kanan: Form Container -->
+        <div class="login-form-container">
+            
+            <!-- FORM LOGIN (PESERTA, ASESOR, OPERATOR) -->
+            <div id="loginSection">
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Selamat Datang!</h3>
+                    <p style="font-size: 0.88rem; color: #64748b; margin-top: 4px;">Pilih peran dan masukkan kredensial akun Anda untuk mengakses sistem.</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="roleSelect">Masuk Sebagai (Peran Aktor)</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-user-shield left-icon"></i>
+                            <select name="role" id="roleSelect" required onchange="handleRoleChange(this.value)">
+                                <option value="peserta" selected>👨‍🎓 Peserta / Mahasiswa</option>
+                                <option value="assesor">⚖️ Asesor / Penguji Kompetensi</option>
+                                <option value="operator">⚙️ Operator / Admin Jurusan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" id="labelUsername">NIM / Email Peserta</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-envelope left-icon"></i>
+                            <input type="text" id="username" name="username" value="4342601070" placeholder="Masukkan NIM atau Email" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Kata Sandi</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-lock left-icon"></i>
+                            <input type="password" id="password" name="password" value="password123" placeholder="Masukkan kata sandi" required>
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('password', this)" title="Tampilkan/Sembunyikan Sandi"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                        <i class="fa-solid fa-right-to-bracket"></i> Masuk Sekarang
+                    </button>
+                </form>
+
+                <!-- Tombol Masuk Cepat / Quick Demo -->
+                <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #475569; margin-bottom: 8px;">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="color: #0284c7;"></i> PINTASAN DEMO CEPAT (1-KLIK):
+                    </div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button type="button" class="btn-secondary" style="font-size:0.75rem; padding: 5px 8px;" onclick="quickLogin('peserta')">
+                            👨‍🎓 Peserta
+                        </button>
+                        <button type="button" class="btn-secondary" style="font-size:0.75rem; padding: 5px 8px;" onclick="quickLogin('assesor')">
+                            ⚖️ Asesor
+                        </button>
+                        <button type="button" class="btn-secondary" style="font-size:0.75rem; padding: 5px 8px;" onclick="quickLogin('operator')">
+                            ⚙️ Operator
+                        </button>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <span>atau pendaftaran baru</span>
+                </div>
+
+                <!-- Tombol Registrasi bagi Peserta yang belum punya akun -->
+                <button type="button" class="btn-outline" onclick="toggleForm('register')">
+                    <i class="fa-solid fa-user-plus"></i> Buat Akun Baru (Registrasi Peserta)
+                </button>
+            </div>
+
+            <!-- FORM REGISTRASI (PESERTA BELUM PUNYA AKUN) -->
+            <div id="registerSection" class="hidden">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Pendaftaran Akun</h3>
+                    <p style="font-size: 0.88rem; color: #64748b; margin-top: 4px;">Lengkapi data diri calon peserta untuk mendaftar ke sistem sertifikasi.</p>
+                </div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regFullName">Nama Lengkap</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-user left-icon"></i>
+                            <input type="text" id="regFullName" name="fullName" placeholder="Contoh: Radja Rafa Alfathir" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regNim">NIM (Nomor Induk Mahasiswa)</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-id-card left-icon"></i>
+                            <input type="text" id="regNim" name="nim" placeholder="Contoh: 4342601065" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regEmail">Email Institusi Polibatam</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-envelope left-icon"></i>
+                            <input type="email" id="regEmail" name="email" placeholder="nama.nim@polibatam.ac.id" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">Kata Sandi</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-lock left-icon"></i>
+                            <input type="password" id="regPassword" name="regPassword" placeholder="Minimal 6 karakter" required>
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('regPassword', this)" title="Tampilkan/Sembunyikan Sandi"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 8px;">
+                        <i class="fa-solid fa-check-circle"></i> Selesaikan Pendaftaran
+                    </button>
+                </form>
+
+                <p class="switch-form-text">
+                    Sudah memiliki akun? <a onclick="toggleForm('login')">Kembali ke Halaman Login</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERAKTIF LOGIN & REGISTRASI -->
+    <script>
+        // Toggle Show/Hide Password
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                iconElement.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                iconElement.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Beralih Antara Login dan Register
+        function toggleForm(target) {
+            const loginSection = document.getElementById('loginSection');
+            const registerSection = document.getElementById('registerSection');
+
+            if (target === 'register') {
+                loginSection.classList.add('hidden');
+                registerSection.classList.remove('hidden');
+            } else {
+                registerSection.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+            }
+        }
+
+        // Handle Penyesuaian Label Input sesuai Peran
+        function handleRoleChange(role) {
+            const label = document.getElementById('labelUsername');
+            const username = document.getElementById('username');
+            if (role === 'peserta') {
+                label.textContent = 'NIM / Email Peserta';
+                username.placeholder = 'Masukkan NIM atau Email';
+                username.value = '4342601070';
+            } else if (role === 'assesor') {
+                label.textContent = 'No. Registrasi Asesor / Email';
+                username.placeholder = 'Masukkan No. Registrasi Asesor';
+                username.value = 'MET.000.002891';
+            } else if (role === 'operator') {
+                label.textContent = 'Username / NIP Operator';
+                username.placeholder = 'Masukkan Username Operator';
+                username.value = 'admin.trpl';
+            }
+        }
+
+        // Fitur Pintasan Cepat (Quick Demo)
+        function quickLogin(role) {
+            document.getElementById('roleSelect').value = role;
+            handleRoleChange(role);
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        }
+
+        // Handling Login Submit & Navigasi ke Halaman Masing-Masing Aktor
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const role = document.getElementById('roleSelect').value;
+            const username = document.getElementById('username').value;
+            
+            // Simpan sesi lokal pengguna
+            localStorage.setItem('userRole', role);
+            localStorage.setItem('username', username);
+
+            if (role === 'peserta') {
+                localStorage.setItem('userFullName', 'Maulana Akram Alif');
+                localStorage.setItem('userNIM', '4342601070');
+            } else if (role === 'assesor') {
+                localStorage.setItem('userFullName', 'Dr. Ir. Hendra Gunawan, S.T., M.Kom.');
+            } else if (role === 'operator') {
+                localStorage.setItem('userFullName', 'Fahrel (Admin LSP TRPL)');
+            }
+
+            // Peta URL Halaman Dashboard per Aktor Sesuai Struktur PBL_1
+            const dashboardMap = {
+                'peserta': 'dashboard_peserta.html',
+                'assesor': 'dashboard_assesor.html',
+                'operator': 'dashboard_operator.html'
+            };
+
+            if (dashboardMap[role]) {
+                window.location.href = dashboardMap[role];
+            } else {
+                alert('Role tidak valid!');
+            }
+        });
+
+        // Handling Register Submit
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('regFullName').value;
+            const nim = document.getElementById('regNim').value;
+            const email = document.getElementById('regEmail').value;
+
+            alert(`Pendaftaran Peserta Berhasil!\n\nNama: ${fullName}\nNIM: ${nim}\nEmail: ${email}\n\nSilakan masuk menggunakan akun Anda.`);
+            
+            document.getElementById('roleSelect').value = 'peserta';
+            handleRoleChange('peserta');
+            document.getElementById('username').value = nim;
+            
+            // Simpan data calon peserta ke localStorage
+            localStorage.setItem('userFullName', fullName);
+            localStorage.setItem('userNIM', nim);
+            localStorage.setItem('userEmail', email);
+
+            toggleForm('login');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Peserta - Manajemen Sertikom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <!-- SIDEBAR NAVIGASI PESERTA (Sesuai Struktur PBL_1) -->
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-title">
+                        <i class="fa-solid fa-certificate fa-lg"></i>
+                        <span class="brand-text">My Course</span>
+                    </div>
+                    <button type="button" id="sidebar-toggle" title="Buka/Tutup Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+                
+                <ul class="menu-list">
+                    <li class="menu-item active" id="menu-dashboard">
+                        <a href="dashboard_peserta.html">
+                            <i class="fa-solid fa-chart-pie"></i> 
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" id="menu-pendaftaran">
+                        <a href="pendaftaran_sertikom.html">
+                            <i class="fa-solid fa-file-pen"></i> 
+                            <span class="menu-text">Pendaftaran</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" id="menu-hasil">
+                        <a href="hasil_seleksi.html">
+                            <i class="fa-solid fa-user-check"></i> 
+                            <span class="menu-text">Riwayat Pendaftaran</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" id="menu-sertifikat">
+                        <a href="sertifikat_saya.html">
+                            <i class="fa-solid fa-file-arrow-down"></i> 
+                            <span class="menu-text">Hasil Asesmen</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-item logout-item">
+                <a href="index.html" onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> 
+                    <span class="menu-text">Keluar</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div>
+                    <span class="top-label">APLIKASI MANAJEMEN SERTIKOM</span>
+                    <h2 id="pageTitle">Dashboard Peserta</h2>
+                </div>
+                <div class="top-right">
+                    <div class="top-user">
+                        <div class="avatar small" id="userAvatar">MA</div>
+                        <span id="userName">Maulana Akram Alif</span>
+                    </div>
+                    <a href="index.html" class="btn-logout" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                    </a>
+                </div>
+            </header>
+
+            <!-- CONTAINER ISI DASHBOARD PESERTA -->
+            <div class="container">
+                <!-- Welcome Card -->
+                <div class="welcome-card">
+                    <h2>Selamat Datang di Portal Sertifikasi Kompetensi!</h2>
+                    <p style="margin-top: 6px; opacity: 0.9;">
+                        Pantau status pendaftaran, jadwal ujian dari asesor, hingga penerbitan sertifikat resmi Anda di sini.
+                    </p>
+                </div>
+
+                <!-- Ringkasan Statistik -->
+                <div class="stats-grid">
+                    <div class="card">
+                        <div style="font-size:0.85rem; color:#64748b; font-weight:600;">KEUNGGULAN PORTAL</div>
+                        <div style="font-size:1.15rem; font-weight:700; margin-top:4px;">Sertifikasi Standar BNSP</div>
+                        <span class="badge badge-success">Terakreditasi Resmi</span>
+                    </div>
+                    <div class="card">
+                        <div style="font-size:0.85rem; color:#64748b; font-weight:600;">KETERSEDIAAN SKEMA</div>
+                        <div style="font-size:1.15rem; font-weight:700; margin-top:4px;">3 Skema Aktif</div>
+                        <span class="badge badge-success">Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="card">
+                        <div style="font-size:0.85rem; color:#64748b; font-weight:600;">TOTAL KUOTA TERSEDIA</div>
+                        <div style="font-size:1.15rem; font-weight:700; margin-top:4px;">75 Sisa Kuota</div>
+                        <span class="badge badge-success">Pengajuan Cepat</span>
+                    </div>
+                </div>
+
+                <!-- Stepper Alur Pendaftaran & Sertifikasi -->
+                <h3 class="section-title"><i class="fa-solid fa-list-check" style="color:#0284c7;"></i> Alur Pendaftaran & Sertifikasi</h3>
+                <div class="stepper">
+                    <div class="step completed">
+                        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                        <div style="font-size:0.85rem; font-weight:600;">1. Pendaftaran</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                        <div style="font-size:0.85rem; font-weight:600;">2. Validasi</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon"><i class="fa-regular fa-calendar-check"></i></div>
+                        <div style="font-size:0.85rem; font-weight:700; color:#0284c7;">3. Jadwal</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <div style="font-size:0.85rem;">4. Ujian Seleksi</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fa-solid fa-award"></i></div>
+                        <div style="font-size:0.85rem;">5. Sertifikasi</div>
+                    </div>
+                </div>
+
+                <!-- Daftar Jenis Sertikom yang Tersedia -->
+                <h3 class="section-title" style="margin-top: 32px;"><i class="fa-solid fa-graduation-cap" style="color:#0284c7;"></i> Skema Sertifikasi Kompetensi Tersedia</h3>
+                <div class="scheme-grid">
+                    
+                    <!-- Card 1: Rekayasa Perangkat Lunak -->
+                    <div class="scheme-card">
+                        <div>
+                            <div class="scheme-header">
+                                <div class="scheme-title">Rekayasa Perangkat Lunak</div>
+                                <span class="badge badge-success">Aktif</span>
+                            </div>
+                            <div class="scheme-desc">
+                                Sertifikasi menguji keahlian pemrograman web terstruktur, analisis kebutuhan perangkat lunak, pemodelan database, serta metodologi pengembangan modern.
+                            </div>
+                            <div class="scheme-requirements">
+                                <h5>Persyaratan Dokumen:</h5>
+                                <ul>
+                                    <li>Transkrip Nilai Pemrograman</li>
+                                    <li>Portofolio Project / Repository Aplikasi</li>
+                                    <li>KTM Aktif Mahasiswa Polibatam</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="scheme-footer">
+                            <div class="quota-info"><i class="fa-solid fa-users"></i> Kuota: 25 / 50</div>
+                            <a href="pendaftaran_sertikom.html?skema=Rekayasa%20Perangkat%20Lunak" class="btn-apply">
+                                <i class="fa-solid fa-paper-plane"></i> Daftar Sekarang
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Jaringan Komputer & Siber -->
+                    <div class="scheme-card">
+                        <div>
+                            <div class="scheme-header">
+                                <div class="scheme-title">Jaringan Komputer & Siber</div>
+                                <span class="badge badge-success">Aktif</span>
+                            </div>
+                            <div class="scheme-desc">
+                                Mengukur kompetensi dalam perancangan infrastruktur jaringan, konfigurasi perangkat router & switch, routing, switching, dan pengamanan sistem data.
+                            </div>
+                            <div class="scheme-requirements">
+                                <h5>Persyaratan Dokumen:</h5>
+                                <ul>
+                                    <li>Lulus Matakuliah Jaringan Komputer</li>
+                                    <li>Sertifikat Pelatihan / Bootcamp Jaringan</li>
+                                    <li>KTM Aktif Mahasiswa Polibatam</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="scheme-footer">
+                            <div class="quota-info"><i class="fa-solid fa-users"></i> Kuota: 30 / 50</div>
+                            <a href="pendaftaran_sertikom.html?skema=Jaringan%20Komputer%20%26%20Siber" class="btn-apply">
+                                <i class="fa-solid fa-paper-plane"></i> Daftar Sekarang
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Desain Grafis & UI/UX -->
+                    <div class="scheme-card">
+                        <div>
+                            <div class="scheme-header">
+                                <div class="scheme-title">Desain Grafis & UI/UX</div>
+                                <span class="badge badge-success">Aktif</span>
+                            </div>
+                            <div class="scheme-desc">
+                                Menguji kemampuan riset pengguna, perancangan antarmuka pengguna visual (UI), interactive prototyping Figma, serta pengujian kegunaan (usability testing).
+                            </div>
+                            <div class="scheme-requirements">
+                                <h5>Persyaratan Dokumen:</h5>
+                                <ul>
+                                    <li>Portofolio Desain / Link Figma</li>
+                                    <li>Sertifikat / Bukti Tugas Akhir Terkait</li>
+                                    <li>KTM Aktif Mahasiswa Polibatam</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="scheme-footer">
+                            <div class="quota-info"><i class="fa-solid fa-users"></i> Kuota: 20 / 40</div>
+                            <a href="pendaftaran_sertikom.html?skema=Desain%20Grafis%20%26%20UI%2FUX" class="btn-apply">
+                                <i class="fa-solid fa-paper-plane"></i> Daftar Sekarang
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERAKTIF -->
+    <script>
+        // Inisialisasi Nama Pengguna dari localStorage
+        const storedName = localStorage.getItem('userFullName') || 'Maulana Akram Alif';
+        document.getElementById('userName').textContent = storedName;
+        const initials = storedName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        }
+
+        function logout() {
+            localStorage.clear();
+        }
+    </script>
+</body>
+</html>

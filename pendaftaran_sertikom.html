@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Sertikom - Manajemen Sertikom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        label { font-size: 0.88rem; font-weight: 600; color: #334155; }
+        input[type="text"], input[type="email"], select { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; }
+        
+        .file-upload-box { 
+            border: 2px dashed #cbd5e1; 
+            padding: 24px; 
+            border-radius: 8px; 
+            text-align: center; 
+            background-color: #f8fafc; 
+            cursor: pointer; 
+            display: block;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .file-upload-box:hover {
+            border-color: #2563eb;
+            background-color: #f0f6ff;
+        }
+        .file-upload-box input[type="file"] { display: none; }
+        
+        .btn-submit {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .alert-box { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .alert-warning { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .alert-success { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-title">
+                        <i class="fa-solid fa-certificate fa-lg"></i>
+                        <span class="brand-text">My Course</span>
+                    </div>
+                    <button type="button" id="sidebar-toggle" title="Buka/Tutup Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+                
+                <ul class="menu-list">
+                    <li class="menu-item" id="menu-dashboard">
+                        <a href="dashboard_peserta.html">
+                            <i class="fa-solid fa-chart-pie"></i> 
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item active" id="menu-pendaftaran">
+                        <a href="pendaftaran_sertikom.html">
+                            <i class="fa-solid fa-file-pen"></i> 
+                            <span class="menu-text">Pendaftaran</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" id="menu-hasil">
+                        <a href="hasil_seleksi.html">
+                            <i class="fa-solid fa-user-check"></i> 
+                            <span class="menu-text">Riwayat Pendaftaran</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" id="menu-sertifikat">
+                        <a href="sertifikat_saya.html">
+                            <i class="fa-solid fa-file-arrow-down"></i> 
+                            <span class="menu-text">Hasil Asesmen</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-item logout-item">
+                <a href="index.html">
+                    <i class="fa-solid fa-right-from-bracket"></i> 
+                    <span class="menu-text">Keluar</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <header class="topbar">
+                <div>
+                    <span class="top-label">APLIKASI MANAJEMEN SERTIKOM</span>
+                    <h2 id="pageTitle">Pendaftaran Sertikom</h2>
+                </div>
+                <div class="top-right">
+                    <div class="top-user">
+                        <div class="avatar small" id="userAvatar">MA</div>
+                        <span id="userName">Maulana Akram Alif</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+                <div class="page-header" style="margin-bottom: 20px;">
+                    <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">Formulir Pendaftaran Sertifikasi Kompetensi</h2>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">Isi data diri dan pilih skema sertifikasi sesuai minat Anda.</p>
+                </div>
+
+                <!-- Alert Sukses / Kuota Habis -->
+                <div id="quotaAlert" class="alert-box alert-warning hidden">
+                    <i class="fa-solid fa-triangle-exclamation fa-lg"></i>
+                    <span><strong>Peringatan:</strong> Kuota untuk skema yang dipilih telah habis! Pendaftaran tidak dapat dilanjutkan.</span>
+                </div>
+
+                <div id="successAlert" class="alert-box alert-success hidden">
+                    <i class="fa-solid fa-circle-check fa-lg"></i>
+                    <span id="successMsg">Pendaftaran berhasil dikirim! Menunggu verifikasi berkas oleh operator.</span>
+                </div>
+
+                <form id="registrationForm" onsubmit="handleFormSubmit(event)">
+                    <!-- Data Diri -->
+                    <div class="card" style="background:#fff; padding:24px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                        <h3 class="section-title" style="font-size:1.15rem; margin-bottom:18px; color:#1e293b;">
+                            <i class="fa-solid fa-user" style="color:#0284c7;"></i> Data Diri Peserta
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" id="regNama" value="Maulana Akram Alif" required style="background-color:#f8fafc;">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Induk Mahasiswa (NIM)</label>
+                                <input type="text" id="regNim" value="4342601070" required style="background-color:#f8fafc;">
+                            </div>
+                            <div class="form-group">
+                                <label>Program Studi</label>
+                                <input type="text" value="Teknologi Rekayasa Perangkat Lunak" readonly style="background-color:#f8fafc;">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Institusi</label>
+                                <input type="email" id="regEmail" value="maulana.akram@polibatam.ac.id" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skema Sertikom -->
+                    <div class="card" style="background:#fff; padding:24px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                        <h3 class="section-title" style="font-size:1.15rem; margin-bottom:18px; color:#1e293b;">
+                            <i class="fa-solid fa-graduation-cap" style="color:#0284c7;"></i> Pilihan Skema Sertifikasi
+                        </h3>
+                        <div class="form-group">
+                            <label>Pilih Skema</label>
+                            <select id="schemeSelect" onchange="checkQuota(this.value)" required>
+                                <option value="" disabled selected>-- Pilih Program Sertikom --</option>
+                                <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak (Sisa Kuota: 25)</option>
+                                <option value="Jaringan Komputer & Siber">Jaringan Komputer & Siber (Sisa Kuota: 30)</option>
+                                <option value="Desain Grafis & UI/UX">Desain Grafis & UI/UX (Sisa Kuota: 20)</option>
+                                <option value="Cloud Architecture" disabled>Cloud Architecture (KUOTA HABIS)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Unggah Berkas Persyaratan -->
+                    <div class="card" style="background:#fff; padding:24px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:24px;">
+                        <h3 class="section-title" style="font-size:1.15rem; margin-bottom:18px; color:#1e293b;">
+                            <i class="fa-solid fa-folder-open" style="color:#0284c7;"></i> Unggah Berkas Persyaratan (PDF / ZIP)
+                        </h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Transkrip Nilai Akademik *</label>
+                                <label class="file-upload-box" id="boxTranskrip">
+                                    <input type="file" accept=".pdf" onchange="handleFileSelected(this, 'previewTranskrip')">
+                                    <i class="fa-solid fa-file-pdf" style="font-size:1.8rem; color:#2563eb; margin-bottom:8px;"></i>
+                                    <div style="font-size:0.85rem; font-weight:600;">Pilih Berkas Transkrip</div>
+                                    <small style="color:#64748b;">Maksimal 2 MB (PDF)</small>
+                                    <div id="previewTranskrip" style="margin-top:6px; color:#15803d; font-weight:700; font-size:0.8rem;"></div>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Scan Kartu Tanda Mahasiswa (KTM) *</label>
+                                <label class="file-upload-box">
+                                    <input type="file" accept=".pdf,image/*" onchange="handleFileSelected(this, 'previewKtm')">
+                                    <i class="fa-solid fa-id-card" style="font-size:1.8rem; color:#2563eb; margin-bottom:8px;"></i>
+                                    <div style="font-size:0.85rem; font-weight:600;">Pilih Berkas KTM</div>
+                                    <small style="color:#64748b;">Maksimal 2 MB (PDF/JPG)</small>
+                                    <div id="previewKtm" style="margin-top:6px; color:#15803d; font-weight:700; font-size:0.8rem;"></div>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Portofolio Project / Bukti Karya *</label>
+                                <label class="file-upload-box">
+                                    <input type="file" accept=".pdf,.zip" onchange="handleFileSelected(this, 'previewPorto')">
+                                    <i class="fa-solid fa-briefcase" style="font-size:1.8rem; color:#2563eb; margin-bottom:8px;"></i>
+                                    <div style="font-size:0.85rem; font-weight:600;">Pilih Berkas Portofolio</div>
+                                    <small style="color:#64748b;">PDF atau ZIP (Maks 10 MB)</small>
+                                    <div id="previewPorto" style="margin-top:6px; color:#15803d; font-weight:700; font-size:0.8rem;"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran Sertikom
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set User Info
+        const storedName = localStorage.getItem('userFullName') || 'Maulana Akram Alif';
+        document.getElementById('userName').textContent = storedName;
+        document.getElementById('regNama').value = storedName;
+        const storedNim = localStorage.getItem('userNIM') || '4342601070';
+        document.getElementById('regNim').value = storedNim;
+
+        // Auto select scheme from URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const skemaParam = urlParams.get('skema');
+        if (skemaParam) {
+            document.getElementById('schemeSelect').value = skemaParam;
+        }
+
+        // Cek Kuota
+        function checkQuota(scheme) {
+            const alertBox = document.getElementById('quotaAlert');
+            const submitBtn = document.getElementById('submitBtn');
+            if (scheme === 'Cloud Architecture') {
+                alertBox.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+            } else {
+                alertBox.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        }
+
+        // Tampilkan Nama File yang Diunggah
+        function handleFileSelected(input, previewId) {
+            if (input.files && input.files[0]) {
+                document.getElementById(previewId).textContent = `✓ ${input.files[0].name} (${(input.files[0].size/1024).toFixed(0)} KB)`;
+            }
+        }
+
+        // Submit Form Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const skema = document.getElementById('schemeSelect').value;
+            if (!skema) {
+                alert('Silakan pilih skema sertifikasi terlebih dahulu.');
+                return;
+            }
+
+            // Simpan status pendaftaran ke localStorage
+            localStorage.setItem('pendaftaranAktif', 'true');
+            localStorage.setItem('skemaTerdaftar', skema);
+            localStorage.setItem('statusPendaftaran', 'Terdaftar');
+
+            const successBox = document.getElementById('successAlert');
+            successBox.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(() => {
+                window.location.href = 'hasil_seleksi.html';
+            }, 1200);
+        }
+
+        // Sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        }
+    </script>
+</body>
+</html>

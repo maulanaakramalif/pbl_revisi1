@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Operator - Manajemen Sertikom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <main class="main" style="width:100%; min-height:100vh;">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div>
+                <span class="top-label">APLIKASI MANAJEMEN SERTIKOM</span>
+                <h2 id="pageTitle">Dashboard Operator</h2>
+            </div>
+
+            <div class="top-right">
+                <div class="top-user">
+                    <div class="avatar small">FR</div>
+                    <span>Fahrel (Admin LSP)</span>
+                </div>
+                <a href="index.html" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </a>
+            </div>
+        </header>
+
+        <!-- CONTAINER CONTENT -->
+        <div class="container" style="max-width: 1480px;">
+            <div class="page-head" style="margin-bottom: 24px;">
+                <h1 style="font-size:1.6rem; font-weight:800; color:#0f172a;">Panel Operator & Administrasi Jurusan</h1>
+                <p style="color:#64748b; font-size:0.92rem; margin-top:4px;">Verifikasi berkas persyaratan calon asesi, atur jadwal ujian, dan kelola skema sertifikasi kompetensi.</p>
+            </div>
+
+            <!-- 1. TABEL VERIFIKASI BERKAS PESERTA (VERVAL) -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-head">
+                    <div>
+                        <span class="label">VERIFIKASI & VALIDASI (VERVAL)</span>
+                        <h3>Daftar Berkas Pendaftaran Peserta</h3>
+                    </div>
+                </div>
+
+                <div class="simple-table table-verifikasi">
+                    <div class="simple-row table-title">
+                        <span>NIM & Nama</span>
+                        <span>Skema Sertikom</span>
+                        <span>Berkas Persyaratan</span>
+                        <span>Jadwal Asesmen</span>
+                        <span>Status Pendaftaran</span>
+                        <span>Update Data</span>
+                        <span>Aksi</span>
+                    </div>
+
+                    <!-- Row 1: Radja Rafa -->
+                    <div class="simple-row" id="row-1">
+                        <div>
+                            <strong>Radja Rafa A.</strong><br>
+                            <small style="color:#64748b;">4342601065</small>
+                        </div>
+                        <span>Junior Web Developer</span>
+                        <div class="action-group">
+                            <button class="btn-action-view" onclick="previewFile('Berkas_Radja.pdf')">
+                                <i class="fa-solid fa-file-pdf"></i> Berkas PDF
+                            </button>
+                        </div>
+                        <div>
+                            <select class="no-icon">
+                                <option value="" disabled selected>-- Pilih Jadwal --</option>
+                                <option value="1">15-11-2026 09:00 Lab RPL 301</option>
+                                <option value="2">18-11-2026 13:00 Lab Komputer B</option>
+                            </select>
+                        </div>
+                        <div class="action-group">
+                            <select class="no-icon">
+                                <option value="" disabled selected>-- Status --</option>
+                                <option value="Terdaftar">Terdaftar</option>
+                                <option value="ditolak">Ditolak</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn-action-approve" onclick="submitDataRow(this)">Submit</button>
+                        </div>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+
+                    <!-- Row 2: Maulana Akram Alif -->
+                    <div class="simple-row" id="row-2">
+                        <div>
+                            <strong>Maulana Akram Alif</strong><br>
+                            <small style="color:#64748b;">4342601070</small>
+                        </div>
+                        <span>Junior Web Developer</span>
+                        <div class="action-group">
+                            <button class="btn-action-view" onclick="previewFile('Berkas_Maulana.pdf')">
+                                <i class="fa-solid fa-file-pdf"></i> Berkas PDF
+                            </button>
+                        </div>
+                        <div>
+                            <select class="no-icon">
+                                <option value="1" selected>15-11-2026 09:00 Lab RPL 301</option>
+                                <option value="2">18-11-2026 13:00 Lab Komputer B</option>
+                            </select>
+                        </div>
+                        <div class="action-group">
+                            <select class="no-icon">
+                                <option value="Terdaftar" selected>Terdaftar</option>
+                                <option value="ditolak">Ditolak</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn-action-approve" onclick="submitDataRow(this)">Submit</button>
+                        </div>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+
+                    <!-- Row 3: Salsa Ramadhani -->
+                    <div class="simple-row" id="row-3">
+                        <div>
+                            <strong>Salsa Ramadhani</strong><br>
+                            <small style="color:#64748b;">4342601022</small>
+                        </div>
+                        <span>Database Administrator</span>
+                        <div class="action-group">
+                            <button class="btn-action-view" onclick="previewFile('Berkas_Salsa.pdf')">
+                                <i class="fa-solid fa-file-pdf"></i> Berkas PDF
+                            </button>
+                        </div>
+                        <div>
+                            <select class="no-icon">
+                                <option value="1">18-11-2026 13:00 Lab Database 204</option>
+                                <option value="2">20-11-2026 09:00 Lab Komputer A</option>
+                            </select>
+                        </div>
+                        <div class="action-group">
+                            <select class="no-icon">
+                                <option value="Terdaftar" selected>Terdaftar</option>
+                                <option value="ditolak">Ditolak</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn-action-approve" onclick="submitDataRow(this)">Submit</button>
+                        </div>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+
+                    <!-- Row 4: Andi Pratama -->
+                    <div class="simple-row" id="row-4">
+                        <div>
+                            <strong>Andi Pratama</strong><br>
+                            <small style="color:#64748b;">4342601011</small>
+                        </div>
+                        <span>Junior Web Developer</span>
+                        <div class="action-group">
+                            <button class="btn-action-view" onclick="previewFile('Berkas_Andi.pdf')">
+                                <i class="fa-solid fa-file-pdf"></i> Berkas PDF
+                            </button>
+                        </div>
+                        <div>
+                            <select class="no-icon">
+                                <option value="" disabled selected>-- Pilih Jadwal --</option>
+                                <option value="1">15-11-2026 09:00 Lab RPL 301</option>
+                            </select>
+                        </div>
+                        <div class="action-group">
+                            <select class="no-icon">
+                                <option value="" disabled selected>-- Pending --</option>
+                                <option value="Terdaftar">Terdaftar</option>
+                                <option value="ditolak">Ditolak</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn-action-approve" onclick="submitDataRow(this)">Submit</button>
+                        </div>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. REKAPITULASI PENDAFTARAN -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-head">
+                    <div>
+                        <span class="label">STATISTIK KELULUSAN</span>
+                        <h3>Rekapitulasi Pendaftaran Sertikom</h3>
+                        <small style="color:#64748b;">Data rekapitulasi berkala kelulusan asesmen per skema keahlian.</small>
+                    </div>
+                </div>
+
+                <div class="simple-table table-rekap" id="table-rekap-pendaftaran">
+                    <div class="simple-row table-title">
+                        <span>Jenis Sertifikasi</span>
+                        <span>Jumlah Pendaftar</span>
+                        <span>Jumlah Yang Lulus</span>
+                        <span>Jumlah Yang Gagal</span>
+                        <span>Aksi Cetak</span>
+                    </div>
+                    <div class="simple-row">
+                        <span><strong>Junior Web Developer</strong></span>
+                        <span>12 Peserta</span>
+                        <span style="color:#10b981; font-weight:700;">8 Peserta</span>
+                        <span style="color:#ef4444; font-weight:700;">4 Peserta</span>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+                    <div class="simple-row">
+                        <span><strong>Database Administrator</strong></span>
+                        <span>8 Peserta</span>
+                        <span style="color:#10b981; font-weight:700;">6 Peserta</span>
+                        <span style="color:#ef4444; font-weight:700;">2 Peserta</span>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+                    <div class="simple-row" style="background:#f8fafc; font-weight:700;">
+                        <span>TOTAL KESELURUHAN</span>
+                        <span>20 Peserta</span>
+                        <span style="color:#10b981;">14 Lulus</span>
+                        <span style="color:#ef4444;">6 Gagal</span>
+                        <span>
+                            <button class="btn-secondary" type="button" onclick="exportRekapRow(this)">
+                                <i class="fa-solid fa-file-pdf" style="color: #dc2626;"></i> Ekspor PDF
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. INPUT SERTIFIKASI (TAMBAH SKEMA) -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-head">
+                    <div>
+                        <span class="label">MANAJEMEN PROGRAM</span>
+                        <h3>Input Sertifikasi Baru</h3>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" type="button" onclick="addDataRow('sertifikasi')">
+                            <i class="fa-solid fa-plus"></i> Tambah Baris
+                        </button>
+                    </div>
+                </div>
+
+                <div class="simple-table table-input-sertifikasi" id="table-sertifikasi">
+                    <div class="simple-row table-title">
+                        <span>Nama Sertifikasi</span>
+                        <span>Deskripsi Singkat</span>
+                        <span>Persyaratan Berkas</span>
+                        <span>Kuota</span>
+                        <span>Aksi</span>
+                    </div>
+
+                    <div class="simple-row">
+                        <span><input type="text" class="no-icon" value="Cyber Security Analyst" placeholder="Nama Sertifikasi"></span>
+                        <span><input type="text" class="no-icon" value="Analisis keamanan siber & insiden" placeholder="Deskripsi"></span>
+                        <span><input type="text" class="no-icon" value="Transkrip & Sertifikat Jaringan" placeholder="Persyaratan"></span>
+                        <span><input type="number" class="no-icon" value="25" min="0"></span>
+                        <span><button class="btn-action-approve" type="button" onclick="submitDataRow(this)">Submit</button></span>
+                    </div>
+
+                    <div class="simple-row">
+                        <span><input type="text" class="no-icon" value="Data Science Associate" placeholder="Nama Sertifikasi"></span>
+                        <span><input type="text" class="no-icon" value="Pemodelan data & Machine Learning" placeholder="Deskripsi"></span>
+                        <span><input type="text" class="no-icon" value="Transkrip Statistik & Python" placeholder="Persyaratan"></span>
+                        <span><input type="number" class="no-icon" value="30" min="0"></span>
+                        <span><button class="btn-action-approve" type="button" onclick="submitDataRow(this)">Submit</button></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. INPUT JADWAL ASESMEN -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-head">
+                    <div>
+                        <span class="label">PENJADWALAN ASESMEN</span>
+                        <h3>Input Jadwal Pengujian</h3>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" type="button" onclick="addDataRow('jadwal')">
+                            <i class="fa-solid fa-plus"></i> Tambah Baris
+                        </button>
+                    </div>
+                </div>
+
+                <div class="simple-table table-input-jadwal" id="table-jadwal">
+                    <div class="simple-row table-title">
+                        <span>Nama Jadwal</span>
+                        <span>Waktu</span>
+                        <span>Tempat / Lab</span>
+                        <span>Tanggal</span>
+                        <span>Asesor Penguji</span>
+                        <span>Aksi</span>
+                    </div>
+
+                    <div class="simple-row">
+                        <span><input type="text" class="no-icon" value="Junior Web Developer"></span>
+                        <span><input type="time" class="no-icon" value="09:00"></span>
+                        <span><input type="text" class="no-icon" value="Lab RPL 301"></span>
+                        <span><input type="date" class="no-icon" value="2026-11-15"></span>
+                        <span><input type="text" class="no-icon" value="Dr. Hendra Gunawan"></span>
+                        <span><button class="btn-action-approve" type="button" onclick="submitDataRow(this)">Submit</button></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. UPLOAD & INPUT SERTIFIKAT -->
+            <div class="card">
+                <div class="card-head">
+                    <div>
+                        <span class="label">PENERBITAN DIGITAL</span>
+                        <h3>Input Sertifikat Resmi</h3>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" type="button" onclick="addDataRow('sertifikat')">
+                            <i class="fa-solid fa-plus"></i> Tambah Baris
+                        </button>
+                    </div>
+                </div>
+
+                <div class="simple-table table-input-sertifikat" id="table-sertifikat">
+                    <div class="simple-row table-title">
+                        <span>File Sertifikat (PDF / JPG)</span>
+                        <span>Nama Sertifikat</span>
+                        <span>Aksi</span>
+                    </div>
+
+                    <div class="simple-row">
+                        <span><input type="file" class="no-icon" accept=".pdf,.jpg,.jpeg,.png"></span>
+                        <span><input type="text" class="no-icon" value="Sertifikat_JWD_Maulana.pdf"></span>
+                        <span><button class="btn-action-approve" type="button" onclick="submitDataRow(this)">Submit</button></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="dashboard_operator.js"></script>
+</body>
+</html>

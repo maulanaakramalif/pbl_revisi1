@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Assessor - Manajemen Sertikom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <main class="main" style="width:100%; min-height:100vh;">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div>
+                <span class="top-label">APLIKASI MANAJEMEN SERTIKOM</span>
+                <h2 id="pageTitle">Dashboard Assessor</h2>
+            </div>
+
+            <div class="top-right">
+                <div class="top-user">
+                    <div class="avatar small">HG</div>
+                    <span id="assessorName">Dr. Ir. Hendra Gunawan</span>
+                </div>
+                <a href="index.html" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </a>
+            </div>
+        </header>
+
+        <!-- CONTAINER CONTENT -->
+        <div class="container">
+            <div class="page-head" style="margin-bottom: 24px;">
+                <h1 style="font-size:1.6rem; font-weight:800; color:#0f172a;">Panel Penilaian Asesor</h1>
+                <p style="color:#64748b; font-size:0.92rem; margin-top:4px;">Kelola jadwal asesmen, input nilai hasil pengujian peserta, dan berikan rekomendasi kompetensi.</p>
+            </div>
+
+            <!-- RINGKASAN STATISTIK (Sesuai Struktur PBL_1) -->
+            <div class="role-stats">
+                <div class="role-stat">
+                    <span>Jadwal Hari Ini</span>
+                    <strong>2</strong>
+                    <small>Asesmen</small>
+                </div>
+                <div class="role-stat">
+                    <span>Peserta Terdaftar</span>
+                    <strong>12</strong>
+                    <small>Asesi</small>
+                </div>
+                <div class="role-stat">
+                    <span>Sudah Dinilai</span>
+                    <strong style="color:#10b981;" id="statSudahDinilai">8</strong>
+                    <small>Peserta</small>
+                </div>
+                <div class="role-stat">
+                    <span>Belum Dinilai</span>
+                    <strong style="color:#f59e0b;" id="statBelumDinilai">4</strong>
+                    <small>Peserta</small>
+                </div>
+            </div>
+
+            <!-- JADWAL TERDEKAT -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-head">
+                    <div>
+                        <span class="label">JADWAL ASESMEN</span>
+                        <h3>Jadwal Uji Asesmen Terdekat</h3>
+                    </div>
+                    <button type="button" class="btn-secondary" onclick="alert('Menampilkan seluruh arsip jadwal...')">
+                        <i class="fa-solid fa-calendar"></i> Lihat Semua
+                    </button>
+                </div>
+
+                <div class="assessor-schedule">
+                    <div class="schedule-row">
+                        <div class="schedule-date"><b>15</b><small>NOV</small></div>
+                        <div>
+                            <b>Junior Web Developer</b>
+                            <div style="font-size:0.82rem; color:#64748b; margin-top:2px;">
+                                09.00 - 15.00 WIB · Lab Komputer RPL 301, Polibatam
+                            </div>
+                        </div>
+                        <span class="status blue-status"><i class="fa-solid fa-clock"></i> Terjadwal</span>
+                    </div>
+
+                    <div class="schedule-row">
+                        <div class="schedule-date"><b>18</b><small>NOV</small></div>
+                        <div>
+                            <b>Database Administrator</b>
+                            <div style="font-size:0.82rem; color:#64748b; margin-top:2px;">
+                                13.00 - 16.00 WIB · Lab Database 204, Polibatam
+                            </div>
+                        </div>
+                        <span class="status blue-status"><i class="fa-solid fa-clock"></i> Terjadwal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABEL DAFTAR PESERTA ASESMEN -->
+            <div class="card assessor-table-card">
+                <div class="card-head">
+                    <div>
+                        <span class="label">DATA PESERTA</span>
+                        <h3>Daftar Peserta Asesmen (Asesi)</h3>
+                    </div>
+                    <div style="font-size:0.85rem; color:#64748b;">
+                        Skema: <strong>Junior Web Developer</strong>
+                    </div>
+                </div>
+
+                <div class="simple-table" id="tablePeserta">
+                    <div class="simple-row table-title">
+                        <span>Nama Peserta</span>
+                        <span>Sertikom</span>
+                        <span>Jadwal</span>
+                        <span>Status Rekomendasi</span>
+                        <span style="text-align:right;">Aksi Penilaian</span>
+                    </div>
+
+                    <!-- Peserta 1 -->
+                    <div class="simple-row" id="row-andi">
+                        <span><strong>Andi Pratama</strong><br><small style="color:#64748b;">NIM: 4342601011</small></span>
+                        <span>Junior Web Developer</span>
+                        <span>15 Nov</span>
+                        <span class="status-cell"><span class="badge" style="background:#f1f5f9; color:#64748b;">Belum Dinilai</span></span>
+                        <div style="text-align:right;">
+                            <button type="button" class="table-btn btn-action" onclick="openScoreForm('Andi Pratama', 'row-andi')">
+                                <i class="fa-solid fa-pen-to-square"></i> Input Nilai
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Peserta 2 -->
+                    <div class="simple-row" id="row-maulana">
+                        <span><strong>Maulana Akram Alif</strong><br><small style="color:#64748b;">NIM: 4342601070</small></span>
+                        <span>Junior Web Developer</span>
+                        <span>15 Nov</span>
+                        <span class="status-cell"><span class="status-badge kompeten">Kompeten</span></span>
+                        <div style="text-align:right;">
+                            <button type="button" class="table-btn btn-action btn-outline" onclick="openViewScore('Maulana Akram Alif', 'Kompeten', 90)">
+                                <i class="fa-solid fa-eye"></i> Lihat Nilai
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Peserta 3 -->
+                    <div class="simple-row" id="row-salsa">
+                        <span><strong>Salsa Ramadhani</strong><br><small style="color:#64748b;">NIM: 4342601022</small></span>
+                        <span>Junior Web Developer</span>
+                        <span>15 Nov</span>
+                        <span class="status-cell"><span class="status-badge kompeten">Kompeten</span></span>
+                        <div style="text-align:right;">
+                            <button type="button" class="table-btn btn-action btn-outline" onclick="openViewScore('Salsa Ramadhani', 'Kompeten', 85)">
+                                <i class="fa-solid fa-eye"></i> Lihat Nilai
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Peserta 4 -->
+                    <div class="simple-row" id="row-dimas">
+                        <span><strong>Dimas Saputra</strong><br><small style="color:#64748b;">NIM: 4342601033</small></span>
+                        <span>Junior Web Developer</span>
+                        <span>15 Nov</span>
+                        <span class="status-cell"><span class="status-badge belum-kompeten">Belum Kompeten</span></span>
+                        <div style="text-align:right;">
+                            <button type="button" class="table-btn btn-action btn-outline" onclick="openViewScore('Dimas Saputra', 'Belum Kompeten', 60)">
+                                <i class="fa-solid fa-eye"></i> Lihat Nilai
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Peserta 5 -->
+                    <div class="simple-row" id="row-radja">
+                        <span><strong>Radja Rafa Alfathir</strong><br><small style="color:#64748b;">NIM: 4342601065</small></span>
+                        <span>Junior Web Developer</span>
+                        <span>15 Nov</span>
+                        <span class="status-cell"><span class="badge" style="background:#f1f5f9; color:#64748b;">Belum Dinilai</span></span>
+                        <div style="text-align:right;">
+                            <button type="button" class="table-btn btn-action" onclick="openScoreForm('Radja Rafa Alfathir', 'row-radja')">
+                                <i class="fa-solid fa-pen-to-square"></i> Input Nilai
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL 1: INPUT NILAI (Sesuai Struktur PBL_1) -->
+            <div id="scorePanel" class="modal-panel">
+                <div class="modal-card">
+                    <div class="modal-head">
+                        <div>
+                            <span class="label">FORM PENILAIAN ASESI</span>
+                            <h2 id="scoreStudent" style="font-size:1.25rem; font-weight:800; color:#0f172a;">Input Nilai Peserta</h2>
+                        </div>
+                        <button type="button" class="close-btn" onclick="closeScoreForm()">&times;</button>
+                    </div>
+
+                    <form class="modal-body" style="margin-top: 18px;" onsubmit="saveScore(event)">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="scoreTheory" style="font-weight: 600;">Nilai Akhir Asesmen (0 - 100) *</label>
+                            <input id="scoreTheory" class="no-icon" type="number" min="0" max="100" placeholder="Contoh: 85" required>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="scoreResult" style="font-weight: 600;">Keputusan Rekomendasi Hasil *</label>
+                            <select id="scoreResult" class="no-icon" required>
+                                <option value="Kompeten">KOMPETEN (K)</option>
+                                <option value="Belum Kompeten">BELUM KOMPETEN (BK)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="scoreNotes" style="font-weight: 600;">Catatan Observasi Asesor</label>
+                            <textarea id="scoreNotes" class="no-icon" rows="2" placeholder="Peserta menguasai unit kompetensi dengan baik..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Penilaian
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MODAL 2: LIHAT NILAI (Sesuai Struktur PBL_1) -->
+            <div id="viewScorePanel" class="modal-panel">
+                <div class="modal-card">
+                    <div class="modal-head">
+                        <div>
+                            <span class="label">HASIL PENILAIAN</span>
+                            <h2 id="viewStudentName" style="font-size:1.25rem; font-weight:800; color:#0f172a;">Detail Nilai Peserta</h2>
+                        </div>
+                        <button type="button" class="close-btn" onclick="closeViewScore()">&times;</button>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <div class="view-score-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+                            <div class="detail-item" style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px;">
+                                <small style="color:#64748b; font-weight:600;">Skor Asesmen</small>
+                                <strong id="viewStudentScore" style="font-size:1.8rem; color:#0284c7; display:block; margin-top:4px;">85</strong>
+                            </div>
+                            <div class="detail-item" style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px;">
+                                <small style="color:#64748b; font-weight:600;">Keputusan</small>
+                                <strong id="viewStudentResult" style="font-size:1.15rem; color:#10b981; display:block; margin-top:8px;">Kompeten</strong>
+                            </div>
+                        </div>
+
+                        <div style="background:#f1f5f9; padding:12px; border-radius:8px; font-size:0.85rem; color:#475569;">
+                            <i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Status telah tervalidasi dan siap diterbitkan sertifikat resmi.
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-secondary" style="width:100%; padding:10px;" onclick="closeViewScore()">
+                        Tutup Jendela
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    let activeStudent = '';
+    let activeRowId = '';
+
+    function openScoreForm(studentName, rowId) {
+        activeStudent = studentName;
+        activeRowId = rowId;
+        document.getElementById('scoreStudent').textContent = 'Input Nilai: ' + studentName;
+        document.getElementById('scoreTheory').value = '';
+        document.getElementById('scorePanel').classList.add('show');
+    }
+
+    function closeScoreForm() {
+        document.getElementById('scorePanel').classList.remove('show');
+    }
+
+    function saveScore(e) {
+        e.preventDefault();
+        const score = document.getElementById('scoreTheory').value;
+        const result = document.getElementById('scoreResult').value;
+
+        if (!score) {
+            alert('Silakan masukkan nilai akhir peserta.');
+            return;
+        }
+
+        // Perbarui baris tabel secara interaktif
+        if (activeRowId) {
+            const row = document.getElementById(activeRowId);
+            if (row) {
+                const statusCell = row.querySelector('.status-cell');
+                const actionCell = row.querySelector('div[style*="text-align:right"]');
+                
+                const isKompeten = result === 'Kompeten';
+                const badgeClass = isKompeten ? 'kompeten' : 'belum-kompeten';
+                
+                statusCell.innerHTML = `<span class="status-badge ${badgeClass}">${result}</span>`;
+                actionCell.innerHTML = `
+                    <button type="button" class="table-btn btn-action btn-outline" onclick="openViewScore('${activeStudent}', '${result}', ${score})">
+                        <i class="fa-solid fa-eye"></i> Lihat Nilai
+                    </button>
+                `;
+            }
+        }
+
+        alert(`Hasil penilaian ${activeStudent} berhasil disimpan!\nNilai: ${score}\nKeputusan: ${result}`);
+        closeScoreForm();
+    }
+
+    function openViewScore(name, result, score) {
+        document.getElementById('viewStudentName').textContent = name;
+        document.getElementById('viewStudentScore').textContent = score;
+        const resEl = document.getElementById('viewStudentResult');
+        resEl.textContent = result;
+        resEl.style.color = result === 'Kompeten' ? '#10b981' : '#dc2626';
+        document.getElementById('viewScorePanel').classList.add('show');
+    }
+
+    function closeViewScore() {
+        document.getElementById('viewScorePanel').classList.remove('show');
+    }
+</script>
+</body>
+</html>
